@@ -1,10 +1,13 @@
 #!/usr/bin/python3
+
 """Defines unittests, for models/place.py.
 Unittest classes:
     TestPlace_instantiation
     TestPlace_save
     TestPlace_to_dict
 """
+
+
 import os
 import models
 import unittest
@@ -14,6 +17,7 @@ from models.place import Place
 
 
 class TestPlace_instantiation(unittest.TestCase):
+
     """Unittests for testing, instantiation of the Place class."""
 
     def test_no_args_instantiates(self):
@@ -144,6 +148,7 @@ class TestPlace_instantiation(unittest.TestCase):
 
 
 class TestPlace_save(unittest.TestCase):
+
     """Unittests for testing, save method of the Place class."""
 
     @classmethod
