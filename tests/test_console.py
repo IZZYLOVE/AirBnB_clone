@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """Defines unittests for console.py.
 Unittest classes:
     TestHBNBCommand_prompting
@@ -10,6 +11,8 @@ Unittest classes:
     TestHBNBCommand_destroy
     TestHBNBCommand_update
 """
+
+
 import os
 import sys
 import unittest
@@ -21,6 +24,7 @@ from unittest.mock import patch
 
 
 class TestHBNBCommand_prompting(unittest.TestCase):
+
     """Unittests for testing, prompting of the HBNB command interpreter."""
 
     def test_prompt_string(self):
@@ -33,6 +37,7 @@ class TestHBNBCommand_prompting(unittest.TestCase):
 
 
 class TestHBNBCommand_help(unittest.TestCase):
+
     """Unittests for testing, help messages of the HBNB command interpreter."""
 
     def test_help_quit(self):
@@ -117,6 +122,7 @@ class TestHBNBCommand_exit(unittest.TestCase):
 
 
 class TestHBNBCommand_create(unittest.TestCase):
+
     """Unittests for testing, create from the HBNB command interpreter."""
 
     @classmethod
@@ -199,6 +205,7 @@ class TestHBNBCommand_create(unittest.TestCase):
 
 
 class TestHBNBCommand_show(unittest.TestCase):
+
     """Unittests for testing, show from the HBNB command interpreter"""
 
     @classmethod
@@ -452,6 +459,7 @@ class TestHBNBCommand_show(unittest.TestCase):
 
 
 class TestHBNBCommand_destroy(unittest.TestCase):
+
     """Unittests for testing, destroy from the HBNB command interpreter."""
 
     @classmethod
@@ -706,6 +714,7 @@ class TestHBNBCommand_destroy(unittest.TestCase):
 
 
 class TestHBNBCommand_all(unittest.TestCase):
+
     """Unittests for testing, all of the HBNB command interpreter."""
 
     @classmethod
@@ -852,6 +861,7 @@ class TestHBNBCommand_all(unittest.TestCase):
 
 
 class TestHBNBCommand_update(unittest.TestCase):
+
     """Unittests for testing update from the HBNB command interpreter."""
 
     @classmethod
@@ -1501,6 +1511,7 @@ class TestHBNBCommand_update(unittest.TestCase):
 
 
 class TestHBNBCommand_count(unittest.TestCase):
+
     """Unittests for testing, count method of HBNB comand interpreter."""
 
     @classmethod
