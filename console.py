@@ -35,6 +35,7 @@ def parse(arg):
 
 
 class HBNBCommand(cmd.Cmd):
+
     """Defines the HolbertonBnB command interpreter.
     Attributes:
         prompt (str): The command prompt.
@@ -52,11 +53,15 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def emptyline(self):
+
         """Do nothing upon receiving an empty line."""
+
         pass
 
     def default(self, arg):
+
         """Default behavior for cmd module when input is invalid"""
+
         argdict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -77,18 +82,24 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_quit(self, arg):
+
         """Quit command to exit the program."""
+
         return True
 
     def do_EOF(self, arg):
+
         """EOF signal to exit the program."""
+
         print("")
         return True
 
     def do_create(self, arg):
+
         """Usage: create <class>
         Create a new class instance and print its id.
         """
+
         argl = parse(arg)
         if len(argl) == 0:
             print("** class name missing **")
@@ -99,9 +110,11 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_show(self, arg):
+
         """Usage: show <class> <id> or <class>.show(<id>)
         Display the string representation of a class instance of a given id.
         """
+
         argl = parse(arg)
         objdict = storage.all()
         if len(argl) == 0:
@@ -116,8 +129,10 @@ class HBNBCommand(cmd.Cmd):
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, arg):
+
         """Usage: destroy <class> <id> or <class>.destroy(<id>)
         Delete a class instance of a given id."""
+
         argl = parse(arg)
         objdict = storage.all()
         if len(argl) == 0:
@@ -133,9 +148,11 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
+
         """Usage: all or all <class> or <class>.all()
         Display string representations of all instances of a given class.
         If no class is specified, displays all instantiated objects."""
+
         argl = parse(arg)
         if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
@@ -149,8 +166,10 @@ class HBNBCommand(cmd.Cmd):
             print(objl)
 
     def do_count(self, arg):
+
         """Usage: count <class> or <class>.count()
         Retrieve the number of instances of a given class."""
+
         argl = parse(arg)
         count = 0
         for obj in storage.all().values():
@@ -159,11 +178,13 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def do_update(self, arg):
+
         """Usage: update <class> <id> <attribute_name> <attribute_value> or
        <class>.update(<id>, <attribute_name>, <attribute_value>) or
        <class>.update(<id>, <dictionary>)
         Update a class instance of a given id by adding or updating
         a given attribute key/value pair or dictionary."""
+
         argl = parse(arg)
         objdict = storage.all()
 
