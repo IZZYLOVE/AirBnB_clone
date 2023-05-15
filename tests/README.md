@@ -1,1 +1,1 @@
-my tests folder
+test folder
