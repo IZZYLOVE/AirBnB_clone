@@ -1,61 +1,53 @@
 #!/usr/bin/python3
-"""File system engin module"""
-import os
-from json import JSONDecoder, JSONEncoder
-from importlib import import_module
+""" FileStorage Class - serializes and deserializes JSON file to instances """
+
+import json
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+import models
 
 
 class FileStorage:
-    """
-    serializes instances to a JSON file and deserializes JSON file to instances
-    """
+    """ This class serializes and deserializes JSON files """
     __file_path = 'file.json'
-    __objects = dict()
-
-    def __init__(self):
-        """Initializes a FileStorage instance."""
-        self.model_classes = {
-            'BaseModel': import_module('models.base_model').BaseModel,
-            'User': import_module('models.user').User,
-            'State': import_module('models.state').State,
-            'City': import_module('models.city').City,
-            'Amenity': import_module('models.amenity').Amenity,
-            'Place': import_module('models.place').Place,
-            'Review': import_module('models.review').Review
-        }
+    __objects = {}
 
     def all(self):
-        """Returns dictionary representation"""
+        """ Method returns the dictionary __objects """
         return self.__objects
 
     def new(self, obj):
-        """sets __objects the obj with key"""
-        dict_key = '{}.{}'.format(obj.__class__.__name__, obj.id)
-        self.__objects[dict_key] = obj
+        """ sets in __objects the obj with class name and id """
+        new_1 = obj.__class__.__name__
+        new_2 = obj.id
+        new = new_1 + '.' + new_2
+        self.__objects[new] = obj
 
     def save(self):
-        """serializes __objects to the JSON file"""
-        with open(self.__file_path, mode='w') as file:
-            json_format = {}
+        """ serialization """
+        dict_add = {}
+        with open(self.__file_path, 'w') as f:
             for key, value in self.__objects.items():
-
-                json_format[key] = value.to_dict()
-            file.write(JSONEncoder().encode(json_format))
+                dict_add[key] = value.to_dict()
+            json.dump(dict_add, f)
 
     def reload(self):
-        """
-        deserializes the JSON file to __objects only if the JSON file exists
-        """
-        if os.path.isfile(self.__file_path):
-            file_lines = []
-            with open(self.__file_path, mode='r') as file:
-                file_lines = file.readlines()
-            file_txt = ''.join(file_lines) if len(file_lines) > 0 else '{}'
-            json_objs = JSONDecoder().decode(file_txt)
-            base_model_objs = dict()
-            classes = self.model_classes
-            for key, value in json_objs.items():
-                class_name = value['__class__']
-                if class_name in classes.keys():
-                    base_model_objs[key] = classes[class_name](**value)
-            self.__objects = base_model_objs
+        """ deserialization """
+        classes = {'BaseModel': BaseModel,
+                   'User': User, 'Place': Place,
+                   'State': State, 'City': City,
+                   'Amenity': Amenity, 'Review': Review}
+        try:
+            with open(self.__file_path, 'r') as f1:
+                file_store = json.load(f1)
+                for key, value in file_store.items():
+                    if '__class__' in value:
+                        val = classes[value['__class__']](**value)
+                        self.__objects[key] = val
+        except:
+            pass
